@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('team1_id')->constrained('teams');
-            $table->foreignId('team2_id')->constrained('teams');
-            $table->foreignId('arena_id')->constrained('arenas');
+            $table->foreignId('team1_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('team2_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('arena_id')->constrained('arenas')->nullOnDelete();
             $table->dateTime('date');
             $table->string('description')->nullable();
             $table->timestamps();
