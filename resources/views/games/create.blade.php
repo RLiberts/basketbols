@@ -1,12 +1,12 @@
 <x-layout>
     <x-slot name="title">{{ __('messages.create_game') }}</x-slot>
-    <h1 class="mb-4">{{ __('messages.add_game_title') }}</h1>
+    <h1 class="mb-4">{{ __('messages.add_game') }}</h1>
     <form method="POST" action="{{ route('games.store') }}">
         @csrf
         <div class="mb-3">
             <label class="form-label">{{ __('messages.team1') }}</label>
             <select name="team1_id" class="form-select">
-                <option value="">Izvēlies komandu</option>
+                <option value="">{{ __('messages.choose_team') }}</option>
                 @foreach($teams as $team)
                     <option value="{{ $team->id }}">{{ $team->name }}</option>
                 @endforeach
@@ -16,7 +16,7 @@
         <div class="mb-3">
             <label class="form-label">{{ __('messages.team2') }}</label>
             <select name="team2_id" class="form-select">
-                <option value="">Izvēlies komandu</option>
+                <option value="">{{ __('messages.choose_team') }}</option>
                 @foreach($teams as $team)
                     <option value="{{ $team->id }}">{{ $team->name }}</option>
                 @endforeach
@@ -26,7 +26,7 @@
         <div class="mb-3">
             <label class="form-label">{{ __('messages.arena') }}</label>
             <select name="arena_id" class="form-select">
-                <option value="">Izvēlies arēnu</option>
+                <option value="">{{ __('messages.choose_arena') }}</option>
                 @foreach($arenas as $arena)
                     <option value="{{ $arena->id }}">{{ $arena->name }}</option>
                 @endforeach

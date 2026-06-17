@@ -6,10 +6,12 @@
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>{{ __('messages.team_name') }}</th>
-                    <th>{{ __('messages.team_city') }}</th>
+                    <th>{{ __('messages.name') }}</th>
+                    <th>{{ __('messages.city') }}</th>
                     <th>{{ __('messages.players') }}</th>
                     <th>{{ __('messages.games') }}</th>
+                    <th>{{ __('messages.wins') }}</th>
+                    <th>{{ __('messages.losses') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +26,8 @@
                         <td>{{ $standing['team']->city ?? '-' }}</td>
                         <td>{{ $standing['players'] }}</td>
                         <td>{{ $standing['played'] }}</td>
+                        <td>{{ $standing['wins'] }}</td>
+                        <td>{{ $standing['losses'] }}</td>
                     </tr>
                 @endforeach
             </tbody>

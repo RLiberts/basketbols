@@ -16,7 +16,7 @@
         <div class="mb-3">
             <label class="form-label">{{ __('messages.manager') }}</label>
             <select name="manager_id" class="form-select">
-                <option value="">Nav menedžera</option>
+                <option value="">{{ __('messages.no_manager') }}</option>
                 @foreach($managers as $manager)
                     <option value="{{ $manager->id }}"
                         {{ $team->manager_id == $manager->id ? 'selected' : '' }}>
@@ -26,10 +26,14 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">{{ __('messages.logo') }}</label>
+            <label class="form-label">{{ __('messages.team_logo') }}</label>
             @if($team->logo)
                 <div class="mb-2">
                     <img src="{{ asset('storage/' . $team->logo) }}" style="max-height: 80px;">
+                </div>
+                <div class="form-check mb-2">
+                    <input type="checkbox" name="remove_logo" id="remove_logo" class="form-check-input">
+                    <label for="remove_logo" class="form-check-label">{{ __('messages.remove_logo') }}</label>
                 </div>
             @endif
             <input type="file" name="logo" class="form-control" accept="image/*">

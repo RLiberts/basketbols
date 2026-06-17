@@ -13,7 +13,7 @@
             </div>
             @auth
                 @if(auth()->user()->isAdmin())
-                    <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('messages.admin') }}</a>
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('messages.admin_panel') }}</a>
                 @endif
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     {{ auth()->user()->name }} ({{ auth()->user()->role }})

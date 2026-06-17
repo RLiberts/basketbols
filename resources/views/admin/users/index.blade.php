@@ -25,10 +25,10 @@
                             @csrf
                             @method('PUT')
                             <select name="role" class="form-select form-select-sm">
-                                <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>user</option>
-                                <option value="manager" {{ $user->role === 'manager' ? 'selected' : '' }}>manager</option>
-                                <option value="secretary" {{ $user->role === 'secretary' ? 'selected' : '' }}>secretary</option>
-                                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>admin</option>
+                                <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>{{ __('messages.role_user_label') }}</option>
+                                <option value="manager" {{ $user->role === 'manager' ? 'selected' : '' }}>{{ __('messages.role_manager_label') }}</option>
+                                <option value="secretary" {{ $user->role === 'secretary' ? 'selected' : '' }}>{{ __('messages.role_secretary_label') }}</option>
+                                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>{{ __('messages.role_admin_label') }}</option>
                             </select>
                             <button type="submit" class="btn btn-sm btn-primary">{{ __('messages.save') }}</button>
                         </form>

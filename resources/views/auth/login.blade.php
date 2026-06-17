@@ -9,12 +9,12 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label">{{ __('messages.user_email') }}</label>
+                    <label class="form-label">{{ __('messages.email') }}</label>
                     <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                     @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">{{ __('messages.user_password') }}</label>
+                    <label class="form-label">{{ __('messages.password') }}</label>
                     <input type="password" name="password" class="form-control" required>
                 </div>
                 <div class="mb-3">
@@ -23,7 +23,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">{{ __('messages.login') }}</button>
             </form>
-            <p class="mt-3">Nav konta? <a href="{{ route('register') }}">{{ __('messages.register') }}</a></p>
+            <p class="mt-3">{{ __('messages.no_account') }} <a href="{{ route('register') }}">{{ __('messages.register') }}</a></p>
         </div>
     </div>
 </x-layout>

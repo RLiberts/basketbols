@@ -46,7 +46,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user && $user->blocked) {
-            return back()->withErrors(['email' => 'Jūsu konts ir bloķēts.']);
+            return back()->withErrors(['email' => __('messages.account_blocked')]);
         }
 
         if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
@@ -54,7 +54,7 @@ class AuthController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
-        return back()->withErrors(['email' => 'Nepareizs epasts vai parole.']);
+        return back()->withErrors(['email' => __('messages.invalid_credentials')]);
     }
 
     public function logout(Request $request)

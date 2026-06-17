@@ -21,7 +21,7 @@ class TeamController extends Controller
         return view('teams.show', compact('team'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         if ($request->user()->cannot('create', Team::class)) {
             abort(403);
@@ -48,10 +48,10 @@ class TeamController extends Controller
         }
 
         Team::create($data);
-        return redirect()->route('teams.index')->with('success', 'Komanda veiksmīgi pievienota!');
+        return redirect()->route('teams.index')->with('success',  __('messages.team_added'));
     }
 
-    public function edit(Team $team)
+    public function edit(Request $request,Team $team)
     {
         if ($request->user()->cannot('update', $team)) {
             abort(403);
@@ -72,20 +72,26 @@ class TeamController extends Controller
             'logo' => 'nullable|image|max:2048',
         ]);
 
-        $data = $request->except('logo');
-
+        $data = $request->except(['logo', 'remove_logo']);
         if ($request->hasFile('logo')) {
             if ($team->logo) {
                 Storage::disk('public')->delete($team->logo);
             }
             $data['logo'] = $request->file('logo')->store('logos', 'public');
+        }elseif ($request->has('remove_logo')) {
+            if ($team->logo) {
+                Storage::disk('public')->delete($team->logo);
+            }
+            $data['logo'] = null;
         }
 
         $team->update($data);
-        return redirect()->route('teams.show', $team)->with('success', 'Komanda veiksmīgi atjaunināta!');
+        return redirect()->route('teams.show', $team)->with('success', __('messages.team_updated'));
+
+
     }
 
-    public function destroy(Team $team)
+    public function destroy(Request $request, Team $team)
     {
         if ($request->user()->cannot('delete', $team)) {
             abort(403);
@@ -94,6 +100,6 @@ class TeamController extends Controller
             Storage::disk('public')->delete($team->logo);
         }
         $team->delete();
-        return redirect()->route('teams.index')->with('success', 'Komanda veiksmīgi dzēsta!');
+        return redirect()->route('teams.index')->with('success', __('messages.team_deleted'));
     }
 }

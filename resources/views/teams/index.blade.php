@@ -15,9 +15,10 @@
                         <div class="card-body">
                             @if($team->logo)
                                 <img src="{{ asset('storage/' . $team->logo) }}"
+                                    alt="{{ __('messages.team_logo') }}"
                                     class="img-fluid mb-2" style="max-height: 80px;">
                             @endif
-                            <h5 class="card-title">{{ $team->name }}</h5>
+                            <h2 class="card-title">{{ $team->name }}</h2>
                             <p class="text-muted">{{ $team->city }}</p>
                             <a href="{{ route('teams.show', $team) }}" class="btn btn-primary">
                                 {{ __('messages.view_profile') }}

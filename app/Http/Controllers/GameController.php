@@ -9,10 +9,34 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::with(['team1', 'team2', 'arena'])->orderBy('date')->get();
-        return view('games.index', compact('games'));
+        $query = Game::with(['team1', 'team2', 'arena', 'stats'])->orderBy('date');
+
+        if ($request->filled('team')) {
+            $query->where(function($q) use ($request) {
+                $q->where('team1_id', $request->team)
+                ->orWhere('team2_id', $request->team);
+            });
+        }
+
+        if ($request->filled('arena')) {
+            $query->where('arena_id', $request->arena);
+        }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('date', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('date', '<=', $request->date_to);
+        }
+
+        $games = $query->get();
+        $teams = \App\Models\Team::all();
+        $arenas = \App\Models\Arena::all();
+
+        return view('games.index', compact('games', 'teams', 'arenas'));
     }
     public function show(Game $game)
     {
@@ -40,11 +64,11 @@ class GameController extends Controller
             'description' => 'nullable|string|max:500',
         ]);
 
-        Game::create($request->all());
-        return redirect()->route('games.index')->with('success', 'Spēle veiksmīgi pievienota!');
+        Game::create($request->only(['team1_id', 'team2_id', 'arena_id', 'date', 'description']));
+        return redirect()->route('games.index')->with('success',  __('messages.game_added'));
     }
 
-    public function edit(Game $game)
+    public function edit(Request $request, Game $game)
     {
         if ($request->user()->cannot('update', $game)) {
             abort(403);
@@ -66,15 +90,15 @@ class GameController extends Controller
             'description' => 'nullable|string|max:500',
         ]);
 
-        $game->update($request->all());
-        return redirect()->route('games.index')->with('success', 'Spēle veiksmīgi atjaunināta!');
+        $game->update($request->only(['team1_id', 'team2_id', 'arena_id', 'date', 'description']));
+        return redirect()->route('games.index')->with('success', __('messages.game_updated'));
     }
-    public function destroy(Game $game)
+    public function destroy(Request $request, Game $game)
     {
         if ($request->user()->cannot('delete', $game)) {
             abort(403);
         }
         $game->delete();
-        return redirect()->route('games.index')->with('success', 'Spēle veiksmīgi dzēsta!');
+        return redirect()->route('games.index')->with('success',  __('messages.game_deleted'));
     }
 }
