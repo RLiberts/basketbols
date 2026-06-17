@@ -7,6 +7,9 @@
             <a class="nav-link" href="#">Kopvērtējums</a>
 
             @auth
+                @if(auth()->user()->isAdmin())
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">Admin</a>
+                @endif
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     {{ auth()->user()->name }} ({{ auth()->user()->role }})
                 </a>

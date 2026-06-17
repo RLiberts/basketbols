@@ -1,4 +1,5 @@
 <?php
+use app\Http\Controllers\AdminController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\AuthController;
@@ -42,4 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/teams/{team}/edit', [TeamController::class, 'edit'])->name('teams.edit');
     Route::put('/teams/{team}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::put('/admin/users/{user}/role', [AdminController::class, 'updateRole'])->name('admin.users.role');
+    Route::put('/admin/users/{user}/block', [AdminController::class, 'toggleBlock'])->name('admin.users.block');
 });
