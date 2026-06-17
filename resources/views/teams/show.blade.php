@@ -32,17 +32,17 @@
                 <p>Nav spēlētāju.</p>
             @endif
             <a href="{{ route('teams.index') }}" class="btn btn-secondary">Atpakaļ</a>
-            @can('update', $team)
+            @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->id === $team->manager_id))
                 <a href="{{ route('teams.edit', $team) }}" class="btn btn-warning">Rediģēt</a>
-            @endcan
-            @can('delete', $team)
+            @endif
+            @if(auth()->check() && auth()->user()->isAdmin())
                 <form method="POST" action="{{ route('teams.destroy', $team) }}" class="d-inline"
                     onsubmit="return confirm('Vai tiešām dzēst šo komandu?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Dzēst</button>
                 </form>
-            @endcan
+            @endif
         </div>
     </div>
 </x-layout>

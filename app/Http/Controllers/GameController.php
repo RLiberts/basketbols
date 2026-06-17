@@ -18,16 +18,20 @@ class GameController extends Controller
     {
         return view('games.show', compact('game'));
     }
-    public function create()
+    public function create(Request $request)
     {
-        $this->authorize('create', Game::class);
+        if ($request->user()->cannot('create', Game::class)) {
+            abort(403);
+        }
         $teams = Team::all();
         $arenas = Arena::all();
         return view('games.create', compact('teams', 'arenas'));
     }
     public function store(Request $request)
     {
-        $this->authorize('create', Game::class);
+        if ($request->user()->cannot('create', Game::class)) {
+            abort(403);
+        }
         $request->validate([
             'team1_id' => 'required|exists:teams,id',
             'team2_id' => 'required|exists:teams,id|different:team1_id',
@@ -42,14 +46,18 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $this->authorize('update', $game);
+        if ($request->user()->cannot('update', $game)) {
+            abort(403);
+        }
         $teams = Team::all();
         $arenas = Arena::all();
         return view('games.edit', compact('game', 'teams', 'arenas'));
     }
     public function update(Request $request, Game $game)
     {
-        $this->authorize('update', $game);
+        if ($request->user()->cannot('update', $game)) {
+            abort(403);
+        }
         $request->validate([
             'team1_id' => 'required|exists:teams,id',
             'team2_id' => 'required|exists:teams,id|different:team1_id',
@@ -63,7 +71,9 @@ class GameController extends Controller
     }
     public function destroy(Game $game)
     {
-        $this->authorize('delete', $game);
+        if ($request->user()->cannot('delete', $game)) {
+            abort(403);
+        }
         $game->delete();
         return redirect()->route('games.index')->with('success', 'Spēle veiksmīgi dzēsta!');
     }

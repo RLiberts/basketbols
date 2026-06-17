@@ -4,9 +4,9 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    @can('create', App\Models\Team::class)
+    @if(auth()->check() && auth()->user()->isAdmin())
         <a href="{{ route('teams.create') }}" class="btn btn-primary mb-3">Pievienot komandu</a>
-    @endcan
+    @endif
     @if($teams->count())
         <div class="row">
             @foreach($teams as $team)

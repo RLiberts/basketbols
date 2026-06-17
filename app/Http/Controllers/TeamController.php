@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class TeamController extends Controller
 {
     public function index()
@@ -22,14 +23,18 @@ class TeamController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Team::class);
+        if ($request->user()->cannot('create', Team::class)) {
+            abort(403);
+        }
         $managers = User::where('role', 'manager')->get();
         return view('teams.create', compact('managers'));
     }
 
     public function store(Request $request)
     {
-        $this->authorize('create', Team::class);
+        if ($request->user()->cannot('create', Team::class)) {
+            abort(403);
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'manager_id' => 'nullable|exists:users,id',
@@ -48,14 +53,18 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
-        $this->authorize('update', $team);
+        if ($request->user()->cannot('update', $team)) {
+            abort(403);
+        }
         $managers = User::where('role', 'manager')->get();
         return view('teams.edit', compact('team', 'managers'));
     }
 
     public function update(Request $request, Team $team)
     {
-        $this->authorize('update', $team);
+        if ($request->user()->cannot('update', $team)) {
+            abort(403);
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'manager_id' => 'nullable|exists:users,id',
@@ -78,7 +87,9 @@ class TeamController extends Controller
 
     public function destroy(Team $team)
     {
-        $this->authorize('delete', $team);
+        if ($request->user()->cannot('delete', $team)) {
+            abort(403);
+        }
         if ($team->logo) {
             Storage::disk('public')->delete($team->logo);
         }

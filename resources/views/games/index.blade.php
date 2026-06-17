@@ -4,9 +4,9 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    @can('create', App\Models\Game::class)
+    @if(auth()->check() && auth()->user()->isAdmin())
         <a href="{{ route('games.create') }}" class="btn btn-primary mb-3">Pievienot spēli</a>
-    @endcan
+    @endif
     @if($games->count())
         <div class="row">
             @foreach($games as $game)
