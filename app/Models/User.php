@@ -53,4 +53,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(Team::class, 'manager_id');
     }
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isManager()
+    {
+        return $this->role === 'manager';
+    }
+
+    public function isSecretary()
+    {
+        return $this->role === 'secretary';
+}
 }
