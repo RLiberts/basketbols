@@ -20,12 +20,14 @@ class GameController extends Controller
     }
     public function create()
     {
+        $this->authorize('create', Game::class);
         $teams = Team::all();
         $arenas = Arena::all();
         return view('games.create', compact('teams', 'arenas'));
     }
     public function store(Request $request)
     {
+        $this->authorize('create', Game::class);
         $request->validate([
             'team1_id' => 'required|exists:teams,id',
             'team2_id' => 'required|exists:teams,id|different:team1_id',
@@ -40,12 +42,14 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
+        $this->authorize('update', $game);
         $teams = Team::all();
         $arenas = Arena::all();
         return view('games.edit', compact('game', 'teams', 'arenas'));
     }
     public function update(Request $request, Game $game)
     {
+        $this->authorize('update', $game);
         $request->validate([
             'team1_id' => 'required|exists:teams,id',
             'team2_id' => 'required|exists:teams,id|different:team1_id',
@@ -59,6 +63,7 @@ class GameController extends Controller
     }
     public function destroy(Game $game)
     {
+        $this->authorize('delete', $game);
         $game->delete();
         return redirect()->route('games.index')->with('success', 'Spēle veiksmīgi dzēsta!');
     }

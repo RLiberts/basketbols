@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="#">Basketbola turnīrs</a>
         <div class="navbar-nav ms-auto">
             <a class="nav-link" href="{{ route('games.index') }}">Spēles</a>
-            <a class="nav-link" href="#">Komandas</a>
+            <a class="nav-link" href="{{ route('teams.index') }}">Komandas</a>
             <a class="nav-link" href="#">Kopvērtējums</a>
 
             @auth
