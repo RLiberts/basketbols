@@ -1,5 +1,6 @@
 <?php
-use app\Http\Controllers\AdminController;
+use App\Http\Controllers\StatController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\AuthController;
@@ -49,4 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
     Route::put('/admin/users/{user}/role', [AdminController::class, 'updateRole'])->name('admin.users.role');
     Route::put('/admin/users/{user}/block', [AdminController::class, 'toggleBlock'])->name('admin.users.block');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/games/{game}/stats', [StatController::class, 'store'])->name('stats.store');
+    Route::get('/stats/{stat}/edit', [StatController::class, 'edit'])->name('stats.edit');
+    Route::put('/stats/{stat}', [StatController::class, 'update'])->name('stats.update');
+    Route::delete('/stats/{stat}', [StatController::class, 'destroy'])->name('stats.destroy');
 });
