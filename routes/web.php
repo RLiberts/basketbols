@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\StandingsController;
 use App\Http\Controllers\StatController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeamController;
@@ -66,3 +67,5 @@ Route::get('/lang/{locale}', function ($locale) {
     }
     return redirect()->route('games.index');
 })->name('lang.switch');
+
+Route::get('/standings', [StandingsController::class, 'index'])->name('standings.index');

@@ -4,7 +4,7 @@
         <div class="navbar-nav ms-auto">
             <a class="nav-link" href="{{ route('games.index') }}">{{ __('messages.games') }}</a>
             <a class="nav-link" href="{{ route('teams.index') }}">{{ __('messages.teams') }}</a>
-            <a class="nav-link" href="#">{{ __('messages.standings') }}</a>
+            <a class="nav-link" href="{{ route('standings.index') }}">{{ __('messages.standings') }}</a>
             <div class="navbar-nav ms-2">
                 <a class="nav-link {{ app()->getLocale() === 'lv' ? 'fw-bold' : '' }}"
                 href="{{ route('lang.switch', 'lv') }}">LV</a>
