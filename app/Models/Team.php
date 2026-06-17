@@ -10,7 +10,7 @@ class Team extends Model
         'name',
         'manager_id',
         'city',
-        'logo'
+        'logo',
     ];
 
     public function manager()
