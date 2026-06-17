@@ -58,3 +58,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/stats/{stat}', [StatController::class, 'update'])->name('stats.update');
     Route::delete('/stats/{stat}', [StatController::class, 'destroy'])->name('stats.destroy');
 });
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['lv', 'en'])) {
+        session(['locale' => $locale]);
+        session()->save();
+    }
+    return redirect()->route('games.index');
+})->name('lang.switch');

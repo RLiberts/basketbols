@@ -1,19 +1,19 @@
 <x-layout>
-    <x-slot name="title">Pievienot komandu</x-slot>
-    <h1 class="mb-4">Pievienot komandu</h1>
+    <x-slot name="title">{{ __('messages.create_team') }}</x-slot>
+    <h1 class="mb-4">{{ __('messages.create_team') }}</h1>
     <form method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Nosaukums</label>
+            <label class="form-label">{{ __('messages.name') }}</label>
             <input type="text" name="name" class="form-control" value="{{ old('name') }}">
             @error('name') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label">Pilsēta</label>
+            <label class="form-label">{{ __('messages.city') }}</label>
             <input type="text" name="city" class="form-control" value="{{ old('city') }}">
         </div>
         <div class="mb-3">
-            <label class="form-label">Menedžeris</label>
+            <label class="form-label">{{ __('messages.manager') }}</label>
             <select name="manager_id" class="form-select">
                 <option value="">Nav menedžera</option>
                 @foreach($managers as $manager)
@@ -22,10 +22,10 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Logo</label>
+            <label class="form-label">{{ __('messages.logo') }}</label>
             <input type="file" name="logo" class="form-control" accept="image/*">
         </div>
-        <button type="submit" class="btn btn-primary">Saglabāt</button>
-        <a href="{{ route('teams.index') }}" class="btn btn-secondary">Atcelt</a>
+        <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
+        <a href="{{ route('teams.index') }}" class="btn btn-secondary">{{ __('messages.cancel') }}</a>
     </form>
 </x-layout>

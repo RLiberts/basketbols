@@ -8,15 +8,15 @@
         </div>
         <div class="col-md-8">
             <h1>{{ $team->name }}</h1>
-            <p><strong>Pilsēta:</strong> {{ $team->city ?? 'Nav norādīta' }}</p>
-            <p><strong>Menedžeris:</strong> {{ $team->manager->name ?? 'Nav menedžera' }}</p>
-            <h3 class="mt-4">Spēlētāji</h3>
+            <p><strong>{{ __('messages.city') }}:</strong> {{ $team->city ?? __('messages.not_specified') }}</p>
+            <p><strong>{{ __('messages.manager') }}:</strong> {{ $team->manager->name ?? __('messages.no_manager') }}</p>
+            <h3 class="mt-4">{{ __('messages.players') }}</h3>
             @if($team->players->count())
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Vārds</th>
-                            <th>Uzvārds</th>
+                            <th>{{ __('messages.first_name') }}</th>
+                            <th>{{ __('messages.last_name') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,18 +29,18 @@
                     </tbody>
                 </table>
             @else
-                <p>Nav spēlētāju.</p>
+                <p>{{ __('messages.no_players') }}</p>
             @endif
-            <a href="{{ route('teams.index') }}" class="btn btn-secondary">Atpakaļ</a>
+            <a href="{{ route('teams.index') }}" class="btn btn-secondary">{{ __('messages.back') }}</a>
             @if(auth()->check() && (auth()->user()->isAdmin() || auth()->user()->id === $team->manager_id))
-                <a href="{{ route('teams.edit', $team) }}" class="btn btn-warning">Rediģēt</a>
+                <a href="{{ route('teams.edit', $team) }}" class="btn btn-warning">{{ __('messages.edit') }}</a>
             @endif
             @if(auth()->check() && auth()->user()->isAdmin())
                 <form method="POST" action="{{ route('teams.destroy', $team) }}" class="d-inline"
                     onsubmit="return confirm('Vai tiešām dzēst šo komandu?')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Dzēst</button>
+                    <button type="submit" class="btn btn-danger">{{ __('messages.delete') }}</button>
                 </form>
             @endif
         </div>

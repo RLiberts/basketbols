@@ -1,18 +1,18 @@
 <x-layout>
-    <x-slot name="title">Lietotāju pārvaldība</x-slot>
+    <x-slot name="title">{{ __('messages.users_title') }}</x-slot>
 
-    <h1 class="mb-4">Lietotāju pārvaldība</h1>
+    <h1 class="mb-4">{{ __('messages.users_title') }}</h1>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>Vārds</th>
-                <th>Epasts</th>
-                <th>Loma</th>
-                <th>Statuss</th>
-                <th>Darbības</th>
+                <th>{{ __('messages.user_name') }}</th>
+                <th>{{ __('messages.user_email') }}</th>
+                <th>{{ __('messages.user_role') }}</th>
+                <th>{{ __('messages.user_status') }}</th>
+                <th>{{ __('messages.user_actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,14 +30,14 @@
                                 <option value="secretary" {{ $user->role === 'secretary' ? 'selected' : '' }}>secretary</option>
                                 <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>admin</option>
                             </select>
-                            <button type="submit" class="btn btn-sm btn-primary">Saglabāt</button>
+                            <button type="submit" class="btn btn-sm btn-primary">{{ __('messages.save') }}</button>
                         </form>
                     </td>
                     <td>
                         @if($user->blocked)
-                            <span class="badge bg-danger">Bloķēts</span>
+                            <span class="badge bg-danger">{{ __('messages.user_blocked') }}</span>
                         @else
-                            <span class="badge bg-success">Aktīvs</span>
+                            <span class="badge bg-success">{{ __('messages.user_active') }}</span>
                         @endif
                     </td>
                     <td>
@@ -45,7 +45,7 @@
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-sm {{ $user->blocked ? 'btn-success' : 'btn-danger' }}">
-                                {{ $user->blocked ? 'Atbloķēt' : 'Bloķēt' }}
+                                {{ $user->blocked ? __('messages.unblock') : __('messages.block') }}
                             </button>
                         </form>
                     </td>

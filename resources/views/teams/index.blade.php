@@ -1,11 +1,11 @@
 <x-layout>
-    <x-slot name="title">Komandas</x-slot>
-    <h1 class="mb-4">Komandas</h1>
+    <x-slot name="title">{{ __('messages.teams') }}</x-slot>
+    <h1 class="mb-4">{{ __('messages.teams') }}</h1>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     @if(auth()->check() && auth()->user()->isAdmin())
-        <a href="{{ route('teams.create') }}" class="btn btn-primary mb-3">Pievienot komandu</a>
+        <a href="{{ route('teams.create') }}" class="btn btn-primary mb-3">{{ __('messages.add_team') }}</a>
     @endif
     @if($teams->count())
         <div class="row">
@@ -20,7 +20,7 @@
                             <h5 class="card-title">{{ $team->name }}</h5>
                             <p class="text-muted">{{ $team->city }}</p>
                             <a href="{{ route('teams.show', $team) }}" class="btn btn-primary">
-                                Skatīt profilu
+                                {{ __('messages.view_profile') }}
                             </a>
                         </div>
                     </div>
@@ -28,6 +28,6 @@
             @endforeach
         </div>
     @else
-        <div class="alert alert-info">Nav nevienas komandas.</div>
+        <div class="alert alert-info">{{ __('messages.no_teams') }}</div>
     @endif
 </x-layout>
