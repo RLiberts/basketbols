@@ -17,6 +17,11 @@ class SetLocale
     {
         if (session()->has('locale')) {
             app()->setLocale(session('locale'));
+        } else {
+            $browserLocale = substr($request->header('Accept-Language'), 0, 2);
+            if (in_array($browserLocale, ['lv', 'en'])) {
+                app()->setLocale($browserLocale);
+            }
         }
         return $next($request);
     }
