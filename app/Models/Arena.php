@@ -10,7 +10,7 @@ class Arena extends Model
         'name',
         'address',
         'lat',
-        'lng',
+        'lng'
     ];
 
     public function games()

@@ -26,9 +26,7 @@ class User extends Authenticatable
         'blocked'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
+    /** 
      * @var list<string>
      */
     protected $hidden = [
@@ -37,8 +35,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array

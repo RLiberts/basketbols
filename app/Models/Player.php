@@ -9,7 +9,7 @@ class Player extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'team_id',
+        'team_id'
     ];
 
     public function team()

@@ -11,7 +11,7 @@ class Game extends Model
         'team2_id',
         'arena_id',
         'date',
-        'description',
+        'description'
     ];
 
     public function team1()

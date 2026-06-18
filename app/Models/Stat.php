@@ -14,7 +14,7 @@ class Stat extends Model
         'rebounds',
         'assists',
         'fouls',
-        'minutes',
+        'minutes'
     ];
 
     public function game()
