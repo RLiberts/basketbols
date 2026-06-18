@@ -13,28 +13,26 @@ class GameController extends Controller
     {
         $query = Game::with(['team1', 'team2', 'arena', 'stats'])->orderBy('date');
 
-        if ($request->filled('team')) {
-            $query->where(function($q) use ($request) {
-                $q->where('team1_id', $request->team)
-                ->orWhere('team2_id', $request->team);
-            });
-        }
+            if ($request->filled('team')) {
+                $query->where(function($q) use ($request) {
+                    $q->where('team1_id', $request->team)
+                    ->orWhere('team2_id', $request->team);
+                });
+            }
 
-        if ($request->filled('arena')) {
-            $query->where('arena_id', $request->arena);
-        }
+            if ($request->filled('arena')) {
+                $query->where('arena_id', $request->arena);
+            }
 
-        if ($request->filled('date_from')) {
-            $query->whereDate('date', '>=', $request->date_from);
-        }
-
-        if ($request->filled('date_to')) {
-            $query->whereDate('date', '<=', $request->date_to);
-        }
-
-        $games = $query->get();
-        $teams = \App\Models\Team::all();
-        $arenas = \App\Models\Arena::all();
+            if ($request->filled('date_from')) {
+                $query->whereDate('date', '>=', $request->date_from);
+            }
+            if ($request->filled('date_to')) {
+                $query->whereDate('date', '<=', $request->date_to);
+            }
+            $games = $query->get();
+            $teams = \App\Models\Team::all();
+            $arenas = \App\Models\Arena::all();
 
         return view('games.index', compact('games', 'teams', 'arenas'));
     }
